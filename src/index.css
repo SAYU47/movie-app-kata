@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Inter-Regular';
+  src: url(./components/fonts/Inter-Regular.ttf);
+}
+
+body {
+  margin: 0 auto;
+  padding: 0 auto;
+  font-family: 'Inter-Regular';
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+#root {
+  max-width: 1010px;
+  min-width: 904px;
+  margin: 0 auto;
+}
+
+ul,
+li,
+p,
+h2 {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
