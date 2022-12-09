@@ -25,6 +25,7 @@ export default class MovieCard extends React.Component {
   onError = () => {
     this.setState({
       hasError: true,
+      loaded: false,
     })
   }
   render() {
@@ -32,17 +33,20 @@ export default class MovieCard extends React.Component {
     const { loaded } = this.state
     const date = format(new Date(release_date), 'MMM dd, yyyy')
     const antIcon = <LoadingOutlined style={{ fontSize: 104 }} spin />
+
     let availabilityPoster = `${this._imgBase}${poster_path}`
+    let noPosterUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1200px-No-Image-Placeholder.svg.png'
     if (this.state.hasError) {
       return cardError
     }
-
+    let poster = !availabilityPoster.includes('null') ? availabilityPoster : noPosterUrl
     return (
       <section className="Movie-card">
         {!loaded && <Spin indicator={antIcon} />}
         <img
-          src={availabilityPoster}
-          alt="poster"
+          src={poster}
+          alt={title}
           style={!loaded ? { display: 'none' } : null}
           onLoad={() => this.setState({ loaded: true })}
         />
