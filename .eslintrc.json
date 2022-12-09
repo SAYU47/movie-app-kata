@@ -4,12 +4,13 @@
     "es2021": true
   },
   "ignorePatterns": ["node_modules", "dist", "build"],
-  "extends": [
+  "extends": [ 
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:import/errors",
     "plugin:import/warnings"
+    
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -18,7 +19,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react", "prettier", "import"],
+  "plugins": ["react", "prettier", "import", "eslint-plugin-prettier"],
   "rules": {
     "indent": ["error", 2],
     "prettier/prettier": "error",

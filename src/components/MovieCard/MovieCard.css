@@ -52,3 +52,9 @@
   line-height: 22px;
   margin-top: 7px;
 }
+
+.ant-spin {
+  margin: 100px auto;
+  margin-left: 20px;
+  display: block;
+}

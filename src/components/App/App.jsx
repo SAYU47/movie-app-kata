@@ -1,34 +1,50 @@
 import React from 'react'
+import { Offline, Online } from 'react-detect-offline'
+
 import MovieList from '../MovieList/MovieList'
 import MovieApi from '../MovieApi/MovieApi'
+import AlertErrors from '../AlertErrors/AlertErrors.jsx'
 export default class App extends React.Component {
+  internetConnectionError = 'Нет подключения к сети!'
+  codeError = 'Извините, приложение сломалось:('
   MovieApi = new MovieApi()
-
   state = {
     results: [],
     isLoaded: false,
-    genreList: [],
+    hasError: false,
   }
-  loadGenres() {
-    this.MovieApi.getMovieGenge().then((resp) => {
-      this.setState(() => {
-        return { genreList: resp }
-      })
+  onError = (err) => {
+    this.setState({
+      hasError: [true, err.message],
     })
   }
-  async componentDidMount() {
-    this.MovieApi.getAllMovie().then((responseArr) => {
-      this.setState({
-        isLoaded: true,
-        results: responseArr,
+  componentDidMount() {
+    this.MovieApi.getAllMovie()
+      .then((responseArr) => {
+        this.setState({
+          isLoaded: true,
+          results: responseArr,
+        })
       })
-      this.loadGenres()
-    })
+      .catch(this.onError)
   }
-
+  componentDidCatch() {
+    this.setState({ hasError: true })
+  }
   render() {
-    const { results, genreList } = this.state
-
-    return <MovieList results={results} genreList={genreList} />
+    const { results, hasError } = this.state
+    if (hasError) {
+      return <AlertErrors error={this.codeError} />
+    }
+    return (
+      <>
+        <Online>
+          <MovieList results={results} />
+        </Online>
+        <Offline>
+          <AlertErrors error={this.internetConnectionError} />
+        </Offline>
+      </>
+    )
   }
 }
