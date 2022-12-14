@@ -18,7 +18,7 @@ export default class MovieCard extends React.Component {
   }
   onCardLoaded() {
     this.setState({
-      loaded: false,
+      loaded: true,
       hasError: false,
     })
   }
@@ -28,10 +28,15 @@ export default class MovieCard extends React.Component {
       loaded: false,
     })
   }
+  releaseData = (release_date) => {
+    if (release_date) {
+      return format(new Date(release_date), 'MMM dd, yyyy')
+    } else return 'Date is unknown'
+  }
   render() {
-    const { title, overview, release_date, poster_path, cardError } = this.props
+    const { title, overview, poster_path, release_date, cardError } = this.props
     const { loaded } = this.state
-    const date = format(new Date(release_date), 'MMM dd, yyyy')
+
     const antIcon = <LoadingOutlined style={{ fontSize: 104 }} spin />
 
     let availabilityPoster = `${this._imgBase}${poster_path}`
@@ -40,7 +45,7 @@ export default class MovieCard extends React.Component {
     if (this.state.hasError) {
       return cardError
     }
-    let poster = !availabilityPoster.includes('null') ? availabilityPoster : noPosterUrl
+    let poster = availabilityPoster.includes('null') ? noPosterUrl : availabilityPoster
     return (
       <section className="Movie-card">
         {!loaded && <Spin indicator={antIcon} />}
@@ -53,7 +58,7 @@ export default class MovieCard extends React.Component {
         <div className="movie-description">
           <div className="movie-description-wrapper">
             <h2>{title}</h2>
-            <div className="new-date">{date}</div>
+            <div className="new-date">{this.releaseData(release_date)}</div>
             <ul className="genre-list">
               <li>экшен</li>
               <li>драма</li>
