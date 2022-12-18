@@ -11,9 +11,7 @@ export default class MovieList extends React.Component {
       return <Alert className="empty-results" message="По Вашему запросу ничего не найдено" type="info" showIcon />
     } else {
       const films = results.map((film) => {
-        const { id, ...allFilm } = film
-
-        return <MovieCard key={id} {...allFilm} cardError={cardError} />
+        return <MovieCard key={film.id} {...film} cardError={cardError} />
       })
       return <ul className="movies">{films}</ul>
     }

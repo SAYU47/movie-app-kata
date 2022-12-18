@@ -1,5 +1,9 @@
 .ant-pagination {
   margin: 0 auto;
-  max-width: 580px;
+  max-width: 500px;
   margin-bottom: 15px;
+}
+
+.ant-pagination-options {
+  display: none !important;
 }

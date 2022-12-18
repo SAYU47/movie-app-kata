@@ -1,11 +1,12 @@
 .movies {
+  box-sizing: border-box;
   padding-left: 0;
   margin: 0 auto;
   height: auto;
   padding-top: 20px;
   display: grid;
-  gap: 35px;
-  grid-template-columns: repeat(2, 48.13%);
+  gap: 21px;
+  grid-template-columns: repeat(2, 50%);
   margin-bottom: 20px;
 }
 
@@ -13,5 +14,5 @@
   width: 310px;
   margin-top: 20px !important;
   margin-bottom: 20px !important;
-  margin: 0 auto
+  margin: 0 auto;
 }

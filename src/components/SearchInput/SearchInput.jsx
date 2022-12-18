@@ -2,6 +2,7 @@
 import React from 'react'
 import debounce from 'lodash.debounce'
 import '../SearchInput/SearchInput.css'
+
 export default class SearchInput extends React.Component {
   render() {
     const { searchMovie } = this.props
