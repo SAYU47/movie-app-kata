@@ -6,8 +6,8 @@ export default class TabsButton extends React.Component {
     const { onChangeTabs } = this.props
 
     const items = [
-      { label: 'Search', key: 'Search', destroyInactiveTabPane: 'false' },
-      { label: 'Rated', key: 'Rated', destroyInactiveTabPane: 'false' },
+      { label: 'Search', key: 'Search', destroyInactiveTabPane: 'false', title: 'Search' },
+      { label: 'Rated', key: 'Rated', destroyInactiveTabPane: 'false', title: 'Rated' },
     ]
     return <Tabs items={items} onChange={onChangeTabs} />
   }

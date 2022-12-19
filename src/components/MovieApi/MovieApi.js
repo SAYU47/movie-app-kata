@@ -30,15 +30,6 @@ export default class MovieApi {
       headers: { 'content-type': 'application/json;charset=utf-8' },
     })
   }
-  // async removeRatedMovies(value, MovieId, guestId) {
-  //   await fetch(`${this._apiBase}//movie/${MovieId}/rating?${this._apiKey}&guest_session_id=${guestId}`, {
-  //     method: 'DELETE',
-  //     body: JSON.stringify({
-  //       value: value,
-  //     }),
-  //     headers: { 'content-type': 'application/json;charset=utf-8' },
-  //   })
-  // }
   async getRatedMovies(guestId) {
     const res = await this.getApi(
       `${this._apiBase}/guest_session/${guestId}/rated/movies?${this._apiKey}&language=en-US&sort_by=created_at.asc`
