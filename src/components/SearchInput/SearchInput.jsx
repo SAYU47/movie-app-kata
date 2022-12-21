@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React from 'react'
 import debounce from 'lodash.debounce'
-import '../SearchInput/SearchInput.css'
+import './SearchInput.css'
 
 export default class SearchInput extends React.Component {
   render() {

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Offline, Online } from 'react-detect-offline'
 
-import MovieList from '../MovieList/MovieList'
-import SearchInput from '../SearchInput/SearchInput'
-import MovieApi from '../MovieApi/MovieApi'
-import AlertErrors from '../AlertErrors/AlertErrors.jsx'
-import Pages from '../Pages/Pages'
-import TabsButton from '../TabsButton/TabsButton'
-import { Provider } from '../MovieContext/MovieContext'
+import MovieList from '../MovieList'
+import SearchInput from '../SearchInput'
+import MovieApi from '../../services/movie-api'
+import AlertErrors from '../AlertErrors'
+import MoviePagination from '../MoviePagination'
+import TabsButton from '../TabsButton'
+import { Provider } from '../../movie-context/movie-context'
 export default class App extends React.Component {
   internetConnectionError = 'Нет подключения к сети!'
   codeError = 'Извините, приложение сломалось:('
@@ -21,6 +21,7 @@ export default class App extends React.Component {
     totalPages: null,
     tab: 'Search',
     genreList: [],
+    startedResult: true,
   }
   onError = (err) => {
     this.setState({
@@ -44,13 +45,16 @@ export default class App extends React.Component {
   }
   getPageContent = () => {
     const { tab, currentPage, value } = this.state
-    if (tab === 'Search') {
+    if (value.length === 0) {
+      !this.MovieApi.getResourses()
+    } else if (tab === 'Search' && value.length !== 0) {
       this.MovieApi.getResourses(currentPage, value)
         .then((movieList) => {
           this.setState({
             isLoaded: true,
             results: movieList.results,
             totalPages: movieList.total_pages,
+            startedResult: false,
           })
         })
         .catch(this.onError)
@@ -63,6 +67,7 @@ export default class App extends React.Component {
             isLoaded: true,
             results: ratedList.results,
             totalPages: ratedList.total_pages,
+            startedResult: false,
           })
         })
         .catch(this.onError)
@@ -97,7 +102,7 @@ export default class App extends React.Component {
     this.setState({ hasError: true })
   }
   render() {
-    const { results, hasError, tab, genreList } = this.state
+    const { results, hasError, tab, genreList, startedResult } = this.state
     if (hasError) {
       return <AlertErrors error={this.codeError} />
     }
@@ -110,8 +115,8 @@ export default class App extends React.Component {
           <Provider value={genreList}>
             <TabsButton onChangeTabs={this.onChangeTabs} />
             {searchInputShow}
-            <MovieList results={results} cardError={cardError} />
-            <Pages
+            <MovieList results={results} cardError={cardError} startedResult={startedResult} />
+            <MoviePagination
               togglePage={this.togglePage}
               currentPage={this.state.currentPage}
               totalPages={this.state.totalPages}

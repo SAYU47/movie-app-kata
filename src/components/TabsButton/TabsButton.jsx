@@ -1,6 +1,6 @@
 import React from 'react'
 import { Tabs } from 'antd'
-import '../TabsButton/TabsButton.css'
+import './TabsButton.css'
 export default class TabsButton extends React.Component {
   render() {
     const { onChangeTabs } = this.props

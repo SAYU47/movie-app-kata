@@ -1,5 +1,5 @@
 import { Alert, Space } from 'antd'
-import '../AlertErrors/AlertErrors.css'
+import './AlertErrors.css'
 const AlertErrors = ({ error }) => {
   return (
     <Space

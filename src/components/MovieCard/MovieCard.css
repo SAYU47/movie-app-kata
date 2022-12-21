@@ -1,19 +1,30 @@
 .Movie-card {
-  width: 450px;
+  max-width: 450px;
   padding: 1em;
   height: auto;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-  display: flex;
+
   border-radius: 12px;
   position: relative;
 }
 
+.Movie-card-content {
+  display: grid;
+  grid-template-columns: (1fr, 1fr);
+  grid-template-areas:
+    'img name'
+    'img article'
+    'img article';
+}
+
 .movie-description-wrapper {
+  grid-area: name;
   margin-left: 20px;
   margin-right: 20px;
 }
 
 .Movie-card img {
+  grid-area: img;
   max-height: 300px;
   max-width: 200px;
 }
@@ -54,16 +65,18 @@
 }
 
 .Movie-card article p {
-  width: 100%;
+  grid-area: article;
   height: auto;
   font-size: 12px;
   line-height: 22px;
   margin-top: 7px;
   padding-bottom: 8px;
+  margin-left: 20px;
+  padding-right: 20px;
 }
 
 .ant-spin {
-  margin: 100px auto;
+  margin: 30px auto;
   margin-left: 20px;
   display: block;
 }
@@ -71,6 +84,7 @@
 .ant-rate {
   position: absolute;
   bottom: 30px;
+  right: 10px;
 }
 
 .ant-rate .ant-rate-star:not(:last-child) {
@@ -90,4 +104,58 @@
   border-radius: 50%;
   font-size: 14px;
   color: #000000;
+}
+
+@media (max-width: 420px) {
+  .Movie-card {
+    box-sizing: border-box;
+    max-width: 387px;
+    min-width: 336px;
+    position: relative;
+    height: 245px;
+    margin: 16px 16px;
+  }
+
+  .Movie-card-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+      'img name name'
+      'article article article';
+  }
+
+  .Movie-card img {
+    grid-area: img;
+    width: 60px;
+    height: 91px;
+  }
+
+  .Movie-card article {
+    grid-area: article;
+    max-width: 350px;
+  }
+
+  .Movie-card article p {
+    max-width: 367px;
+    margin-left: 0;
+  }
+
+  .ant-rate {
+    bottom: 10px;
+    right: 10px;
+  }
+
+  .ant-spin {
+    margin-top: 35px;
+  }
+
+  .anticon-loading {
+    font-size: 40px !important;
+  }
+
+  .movie-description-wrapper {
+    width: 200px;
+    height: auto;
+    grid-area: name;
+  }
 }

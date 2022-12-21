@@ -1,11 +1,11 @@
 import React from 'react'
-import '../MovieCard/MovieCard.css'
+import './MovieCard.css'
 import { format } from 'date-fns'
 import { LoadingOutlined } from '@ant-design/icons'
 import { Spin, Rate } from 'antd'
 
-import MovieApi from '../MovieApi/MovieApi'
-import { Consumer } from '../MovieContext/MovieContext'
+import MovieApi from '../../services/movie-api'
+import { Consumer } from '../../movie-context/movie-context'
 export default class MovieCard extends React.Component {
   MovieApi = new MovieApi()
   _imgBase = 'https://image.tmdb.org/t/p/w500'
@@ -89,7 +89,7 @@ export default class MovieCard extends React.Component {
     const { title, overview, poster_path, release_date, cardError } = this.props
     const { loaded, rate } = this.state
 
-    const antIcon = <LoadingOutlined style={{ fontSize: 104 }} spin />
+    const antIcon = <LoadingOutlined style={{ fontSize: 84 }} spin />
 
     let availabilityPoster = `${this._imgBase}${poster_path}`
     let noPosterUrl =
@@ -113,14 +113,9 @@ export default class MovieCard extends React.Component {
       <>
         <section className="Movie-card">
           {!loaded && <Spin indicator={antIcon} />}
-          <img
-            src={poster}
-            alt={title}
-            style={!loaded ? { display: 'none' } : null}
-            onLoad={() => this.setState({ loaded: true })}
-          />
+          <div className="Movie-card-content" style={!loaded ? { display: 'none' } : null}>
+            <img src={poster} alt={title} onLoad={() => this.setState({ loaded: true })} />
 
-          <div className="movie-description">
             <div className="movie-description-wrapper">
               <h2>{title}</h2>
               <div className="rate-circle" style={colorRate}>
@@ -128,14 +123,14 @@ export default class MovieCard extends React.Component {
               </div>
               <div className="new-date">{this.releaseData(release_date)}</div>
               {this.putGenres()}
-              <article>
-                <p>
-                  {this.cutText(overview)}
-                  <span>{this.dotText(overview)}</span>
-                </p>
-              </article>
-              <Rate allowHalf count={10} onChange={this.sendRating} value={Number(rate)} />
             </div>
+            <article>
+              <p>
+                {this.cutText(overview)}
+                <span>{this.dotText(overview)}</span>
+              </p>
+            </article>
+            <Rate allowHalf count={10} onChange={this.sendRating} value={Number(rate)} />
           </div>
         </section>
       </>

@@ -8,6 +8,7 @@
   gap: 21px;
   grid-template-columns: repeat(2, 50%);
   margin-bottom: 20px;
+  min-width: 940px;
 }
 
 .empty-results {
@@ -15,4 +16,13 @@
   margin-top: 20px !important;
   margin-bottom: 20px !important;
   margin: 0 auto;
+}
+
+@media (max-width: 420px) {
+  .movies {
+    display: flex;
+    flex-direction: column;
+    max-width: 387px;
+    min-width: 1px;
+  }
 }

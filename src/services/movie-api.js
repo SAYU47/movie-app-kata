@@ -1,7 +1,6 @@
 export default class MovieApi {
-  _apiBase = 'https://api.themoviedb.org/3/'
   _apiKey = 'api_key=7a973da06c500a550f464b42845a9093'
-
+  _apiBase = 'https://api.themoviedb.org/3/'
   async getApi(url) {
     const res = await fetch(url)
     if (!res.ok) {
@@ -11,9 +10,7 @@ export default class MovieApi {
 
   async getResourses(page = 1, searchWord) {
     const res = await this.getApi(
-      `${this._apiBase}search/movie?${this._apiKey}&language=en-US&query=${
-        searchWord || 'return'
-      }&page=${page}&include_adult=false`
+      `${this._apiBase}search/movie?${this._apiKey}&language=en-US&query=${searchWord}&page=${page}&include_adult=false`
     )
     return res
   }
